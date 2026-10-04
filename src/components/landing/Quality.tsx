@@ -1,5 +1,6 @@
 import { Waves, VolumeX, Ban, CheckCircle2, FileJson, Layers, ShieldCheck, Eye, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { JsonHighlight } from "@/components/JsonHighlight";
 
 const standards = [
   {
@@ -27,6 +28,36 @@ const verificationStages = [
   { step: "02", icon: Layers, title: "Cross-annotator agreement", description: "A second independent annotator re-transcribes the same audio. We measure inter-annotator agreement (IAA) and resolve every conflict." },
   { step: "03", icon: ShieldCheck, title: "Senior QA sign-off", description: "A senior QA lead audits a stratified sample of every batch. Nothing ships until it clears the 99%+ accuracy threshold." },
 ];
+
+/**
+ * Sample payload shown in the "Delivery format" terminal.
+ * Rendered with VS Code Dark+ colors by <JsonHighlight />.
+ */
+const deliverySample = `{
+  "sample_id": "RIF_HOC_CENTRAL_000031",
+  "language": "Tarifit",
+  "dialect": "Central Rif",
+  "region": "Al Hoceima",
+  "transcription": {
+    "text_rlts": "Ma Anahwa Gha Rmoyyi Nigh Anrah Gha Woghzar",
+    "translation_ar": "هل سننزل إلى الميناء أم سنذهب إلى الوادي",
+    "translation_en": "Are we going down to the harbor or going to the valley?"
+  },
+  "morphology": {
+    "tokens": ["Ma","Anahwa","Gha","Rmoyyi","Nigh","Anrah","Gha","Woghzar"]
+  },
+  "syntax": {
+    "sentence_type": "Alternative question",
+    "subject": "Implicit",
+    "predicate": "Anrah",
+    "objects": ["Rmoyyi","Woghzar"]
+  },
+  "semantic_context": {
+    "geographical_expression": true,
+    "cultural_context": "Mountain-to-coast movement."
+  },
+  "quality_status": "human_verified"
+}`;
 
 export const Quality = () => {
   return (
@@ -155,32 +186,9 @@ export const Quality = () => {
                 <span className="w-2 h-2 rounded-full bg-emerald-400" />
                 transcript.json
               </div>
-<pre className="whitespace-pre">{`{
-  "sample_id": "RIF_HOC_CENTRAL_000031",
-  "language": "Tarifit",
-  "dialect": "Central Rif",
-  "region": "Al Hoceima",
-  "transcription": {
-    "text_rlts": "Ma Anahwa Gha Rmoyyi Nigh Anrah Gha Woghzar",
-    "translation_ar": "هل سننزل إلى الميناء أم سنذهب إلى الوادي",
-    "translation_en": "Are we going down to the harbor or going to the valley?"
-  },
-  "morphology": {
-    "tokens": ["Ma","Anahwa","Gha","Rmoyyi","Nigh","Anrah","Gha","Woghzar"]
-  },
-  "syntax": {
-    "sentence_type": "Alternative question",
-    "subject": "Implicit",
-    "predicate": "Anrah",
-    "objects": ["Rmoyyi","Woghzar"]
-  },
-  "semantic_context": {
-    "geographical_expression": true,
-    "cultural_context": "Mountain-to-coast movement."
-  },
-  "quality_status": "human_verified"
-}`
-}</pre>
+<pre className="whitespace-pre">
+                <JsonHighlight code={deliverySample} />
+              </pre>
             </div>
             <div className="flex justify-end pt-3 pr-1">
               <a

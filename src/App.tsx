@@ -12,6 +12,7 @@ import { Quality } from "./pages/Quality.tsx"; // ← هادي اللي تبدل
 
 import ContactPage from "./pages/Contact.tsx";
 import AboutPage from "./pages/About.tsx";
+import ExecutiveOverview from "./pages/ExecutiveOverview.tsx";
 import GuidelinesPage from "./pages/Guidelines.tsx";
 import TestPage from "./pages/Test.tsx";
 import LanguagesPage from "./pages/Languages.tsx";
@@ -49,6 +50,7 @@ const App = () => (
 
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/executive-overview" element={<ExecutiveOverview />} />
           <Route path="/guidelines" element={<GuidelinesPage />} />
           <Route path="/test" element={<TestPage />} />
           <Route path="/languages" element={<LanguagesPage />} />

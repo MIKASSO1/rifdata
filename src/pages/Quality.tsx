@@ -1,5 +1,6 @@
 import { Play, Pause, MapPin, ChevronDown, SlidersHorizontal, Folder, Lock, Mail, Building2, User, Eye, EyeOff, CheckCircle2, ArrowRight } from "lucide-react";
 import { useState, useRef, useEffect, useCallback } from "react";
+import { JsonHighlight, MUTED_EDITOR_PALETTE } from "@/components/JsonHighlight";
 
 // ─── MASTER PASSWORD — change here to rotate credentials ───────────────────
 const MASTER_PASSWORD = "RifData_QA_2026";
@@ -653,7 +654,7 @@ function QualityContent() {
                 </div>
 
                 <pre className="overflow-auto p-6 font-mono text-[13px] leading-[1.75] text-white/85 flex-1">
-                  <JsonHighlight code={generateDynamicJson()} />
+                  <JsonHighlight code={generateDynamicJson()} palette={MUTED_EDITOR_PALETTE} />
                 </pre>
                 <div className="flex justify-end px-6 py-3 border-t border-white/10">
                   <a
@@ -677,18 +678,5 @@ function QualityContent() {
   );
 }
 
-function JsonHighlight({ code }: { code: string }) {
-  const parts = code.split(/("(?:\\.|[^"\\])*"(?:\s*:)?|\b(?:true|false|null)\b|-?\d+(?:\.\d+)?)/g);
-  return (
-    <code>
-      {parts.map((p, i) => {
-        if (!p) return null;
-        if (/^"(?:\\.|[^"\\])*"\s*:$/.test(p)) return <span key={i} className="text-[#9ad9c2]">{p}</span>;
-        if (/^".*"$/.test(p)) return <span key={i} className="text-[#f3c98b]">{p}</span>;
-        if (/^(true|false|null)$/.test(p)) return <span key={i} className="text-[#c4a7ff]">{p}</span>;
-        if (/^-?\d/.test(p)) return <span key={i} className="text-[#7fb3ff]">{p}</span>;
-        return <span key={i}>{p}</span>;
-      })}
-    </code>
-  );
-}
+// JSON syntax highlighting now lives in the shared component:
+// src/components/JsonHighlight.tsx (default palette = VS Code Dark+).

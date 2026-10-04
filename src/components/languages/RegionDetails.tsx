@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Play, Square, MapPin, Type, Waves, Languages, ChevronDown } from 'lucide-react';
 
 interface Sentence { id: number; text: string; english: string; }
 interface RegionInfo { name: string; sentences: Sentence[]; }
@@ -140,49 +141,107 @@ const RegionDetails = ({ selectedRegion }: Props) => {
   return (
     <div className="space-y-12 py-8 px-4">
       <h1 className="text-4xl font-bold text-center">{region.name}</h1>
-      <div className="bg-white rounded-xl border shadow-md p-6">
-        <h2 className="text-3xl font-bold mb-6">Dialect Comparison Table</h2>
-        <select className="w-full p-3 border-2 rounded-lg mb-6 text-base" value={selectedSentenceId} onChange={(e) => setSelectedSentenceId(Number(e.target.value))}>
-          {region.sentences.map(s => <option key={s.id} value={s.id}>{s.id}. {s.english}</option>)}
-        </select>
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <thead><tr className="bg-[#1e3a8a] text-white text-sm">
-              <th className="p-4 text-center font-semibold">Audio</th>
-              <th className="p-4 text-left font-semibold">Region</th>
-              <th className="p-4 text-left font-semibold">Transcription</th>
-              <th className="p-4 text-left font-semibold">Transcription Academic</th>
-              <th className="p-4 text-left font-semibold">Translation</th>
-            </tr></thead>
-            <tbody>
-              {dialectList.map(dialect => {
-                const s = getSentenceById(dialect, selectedSentenceId);
-                const key = `${dialect}-${selectedSentenceId}`;
-                const isPlaying = playingKey === key;
-                return (
-                  <tr key={dialect} className={mappedRegionName === dialect? 'bg-blue-50 font-bold' : 'hover:bg-gray-50'}>
-                    <td className="p-4 border text-center">
-                      <button onClick={() => handlePlayAudio(dialect, selectedSentenceId)} className={`${isPlaying? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'} text-white px-4 py-2 rounded-lg text-sm transition min-w-[80px]`}>
-                        {isPlaying? '⏹ Stop' : '🔊 Play'}
-                      </button>
-                    </td>
-                    <td className="p-4 border">{dialect.replace(' Rif','').replace(' Region','')}</td>
-                    <td className="p-4 border text-lg">{s.text}</td>
-                    <td className="p-4 border font-mono text-blue-700">{toAcademic(s.text)}</td>
-                    <td className="p-4 border italic">{s.english}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+      <div className="bg-white rounded-3xl border border-navy/10 shadow-[0_20px_60px_-30px_rgba(15,42,92,0.25)] p-6 md:p-10">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy/5 border border-navy/15 text-navy text-xs font-semibold tracking-wider uppercase mb-3">
+              <Languages size={14} />
+              Dialect Comparison
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-navy-deep tracking-tight">Dialect Comparison Table</h2>
+          </div>
+          <div className="w-full md:w-80">
+            <label htmlFor="sentence-select" className="block text-xs font-semibold tracking-wider uppercase text-slate-brand mb-2">
+              Sentence
+            </label>
+            <div className="relative">
+              <select
+                id="sentence-select"
+                className="w-full appearance-none p-3 pr-10 rounded-xl border-2 border-navy/15 bg-white text-base text-foreground focus:outline-none focus:ring-2 focus:ring-navy/30 focus:border-navy/40 transition-colors"
+                value={selectedSentenceId}
+                onChange={(e) => setSelectedSentenceId(Number(e.target.value))}
+              >
+                {region.sentences.map(s => <option key={s.id} value={s.id}>{s.id}. {s.english}</option>)}
+              </select>
+              <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-navy/60" />
+            </div>
+          </div>
+        </div>
+
+        {/* Dialect cards */}
+        <div className="grid gap-5 md:grid-cols-2">
+          {dialectList.map(dialect => {
+            const s = getSentenceById(dialect, selectedSentenceId);
+            const key = `${dialect}-${selectedSentenceId}`;
+            const isPlaying = playingKey === key;
+            const isActive = mappedRegionName === dialect;
+            return (
+              <article
+                key={dialect}
+                className={`group relative rounded-2xl border p-5 md:p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/10 ${
+                  isActive ? 'border-navy bg-navy/[0.04] ring-2 ring-navy/30' : 'border-navy/10 bg-white hover:border-navy/30'
+                }`}
+              >
+                {isActive && (
+                  <span className="absolute -top-3 right-5 px-3 py-1 rounded-full bg-navy text-white text-[10px] font-semibold tracking-wider uppercase shadow">
+                    Selected region
+                  </span>
+                )}
+                <div className="flex items-center justify-between gap-4 mb-5">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center ${isActive ? 'bg-navy text-white' : 'bg-navy/5 text-navy group-hover:bg-navy/10'} transition-colors`}>
+                      <MapPin size={18} />
+                    </span>
+                    <h3 className="text-lg font-bold text-navy-deep truncate">{dialect.replace(' Rif','').replace(' Region','')}</h3>
+                  </div>
+                  <button
+                    onClick={() => handlePlayAudio(dialect, selectedSentenceId)}
+                    className={`shrink-0 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors min-w-[92px] justify-center ${
+                      isPlaying ? 'bg-rose-600 hover:bg-rose-700' : 'bg-navy hover:bg-navy-deep'
+                    }`}
+                  >
+                    {isPlaying ? <Square size={14} /> : <Play size={14} />}
+                    {isPlaying ? 'Stop' : 'Play'}
+                  </button>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex items-center gap-2 text-[10px] font-semibold tracking-wider uppercase text-slate-brand mb-1.5">
+                      <Type size={12} /> Transcription
+                    </div>
+                    <p className="text-base md:text-lg font-medium text-foreground leading-relaxed break-words">{s.text}</p>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 text-[10px] font-semibold tracking-wider uppercase text-slate-brand mb-1.5">
+                      <Waves size={12} /> Academic
+                    </div>
+                    <p className="font-mono text-sm text-navy bg-navy/5 border border-navy/10 rounded-lg px-3 py-2 break-words">{toAcademic(s.text)}</p>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 text-[10px] font-semibold tracking-wider uppercase text-slate-brand mb-1.5">
+                      <Languages size={12} /> Translation
+                    </div>
+                    <p className="italic text-sm text-slate-brand leading-relaxed">{s.english}</p>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         {currentAnalysis && (
-          <div className="mt-8 p-6 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border-2 border-yellow-400 shadow-sm">
-            <h3 className="text-2xl font-bold mb-2 text-[#1e3a8a]">{currentAnalysis.title}</h3>
-            <p className="italic mb-4 text-gray-700 bg-white p-3 rounded-lg">⚽ {currentAnalysis.description}</p>
+          <div className="mt-10 p-6 md:p-8 rounded-2xl border border-navy/15 bg-gradient-to-br from-navy/[0.05] to-white">
+            <h3 className="text-xl md:text-2xl font-bold mb-3 text-navy-deep">{currentAnalysis.title}</h3>
+            <p className="italic mb-5 text-slate-brand bg-white p-3 rounded-lg border border-navy/10">⚽ {currentAnalysis.description}</p>
             <ul className="space-y-3">
-              {currentAnalysis.analysis.points.map((p: string, i: number) => <li key={i} className="text-base bg-white p-2 rounded">▸ <span dangerouslySetInnerHTML={{__html: p}}/></li>)}
+              {currentAnalysis.analysis.points.map((p: string, i: number) => (
+                <li key={i} className="text-base bg-white p-3 rounded-lg border border-navy/10 flex gap-2">
+                  <span className="text-navy shrink-0">▸</span>
+                  <span dangerouslySetInnerHTML={{__html: p}}/>
+                </li>
+              ))}
             </ul>
           </div>
         )}

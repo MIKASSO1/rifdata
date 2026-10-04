@@ -4,6 +4,7 @@ import { Services } from "@/components/landing/Services";
 import { Quality } from "@/components/landing/Quality";
 import { Footer } from "@/components/landing/Footer";
 import Capabilities from "@/components/Capabilities";
+import Comparison from "@/components/landing/Comparison";
 
 const Index = () => {
   return (
@@ -12,6 +13,7 @@ const Index = () => {
       <main>
         <Hero />
         <Capabilities />
+        <Comparison />
         <Services />
         <Quality />
         
