@@ -80,11 +80,41 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  html,
+  body {
+    overflow-x: clip;
+    max-width: 100%;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    min-width: 0;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  video {
+    max-width: 100%;
+  }
+
+  /* Responsive container gutters: tighter on phones, roomier on desktop */
+  .container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1rem;
+    min-width: 0;
+  }
+  @media (min-width: 640px) {
+    .container {
+      padding-inline: 1.5rem;
+    }
   }
 
   /* Global Giga-style typography — Playfair Display for all top-level headings.
@@ -177,56 +207,83 @@
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
   }
-  
-                      .leaflet-bottom.leaflet-right {
-  margin-bottom: 50px!important;
-}
 
-.leaflet-control.legend {
-  background: rgba(255, 255, 255, 0.95)!important;
-  padding: 12px!important;
-  border-radius: 8px!important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2)!important;
-  max-height: 250px;
-  overflow-y: auto;
-}
-/* ===== Fix for Leaflet Map Legend - لا تمسح والو من فوق ===== */
-.leaflet-bottom.leaflet-right {
-  margin-bottom: 50px !important;
-}
+  /* ===== Responsive hardening: phones / tablets / desktops ===== */
+  /* Long words, URLs and JSON must never force horizontal scrolling */
+  h1, h2, h3, p, li, td, th {
+    overflow-wrap: break-word;
+  }
 
-.leaflet-control.legend {
-  background: rgba(255, 255, 255, 0.95) !important;
-  padding: 12px !important;
-  border-radius: 8px !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
-  max-height: 250px;
-  overflow-y: auto;
-  font-size: 14px;
-  line-height: 1.6;
-}
+  /* Tables scroll inside their wrapper instead of breaking layout */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
 
-.leaflet-control.legend h4 {
-  margin: 0 0 8px 0 !important;
-  font-weight: 700 !important;
-  font-size: 15px !important;
-  color: #1e293b !important;
-}
+  /* Leaflet maps: stay inside rounded cards, keep controls tappable */
+  .leaflet-container {
+    max-width: 100%;
+    font-size: 13px;
+    z-index: 0;
+  }
+  .leaflet-control-zoom a {
+    min-width: 34px;
+    min-height: 34px;
+    line-height: 34px !important;
+  }
 
-.leaflet-control.legend div {
-  margin-bottom: 4px !important;
-  display: flex !important;
-  align-items: center !important;
-}
+  /* Coarse pointers (phones/tablets): comfortable tap targets for icon buttons */
+  @media (pointer: coarse) {
+    .leaflet-control-zoom a {
+      min-width: 40px;
+      min-height: 40px;
+      line-height: 40px !important;
+    }
+  }
 
-.leaflet-control.legend span {
-  width: 12px !important;
-  height: 12px !important;
-  display: inline-block !important;
-  margin-right: 8px !important;
-  border-radius: 2px !important;
-  border: 1px solid rgba(0,0,0,0.1) !important;
-}
-/* ===== سالينا ===== */
+  /* Notch / safe-area support for fixed header and full-screen menus */
+  header {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  /* ===== Leaflet Map Legend ===== */
+  .leaflet-bottom.leaflet-right {
+    margin-bottom: 50px !important;
+  }
+
+  .leaflet-control.legend {
+    background: rgba(255, 255, 255, 0.95) !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+    max-height: min(250px, 40vh);
+    max-width: min(220px, 44vw);
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .leaflet-control.legend h4 {
+    margin: 0 0 8px 0 !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+    color: #1e293b !important;
+  }
+
+  .leaflet-control.legend div {
+    margin-bottom: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .leaflet-control.legend span {
+    width: 12px !important;
+    height: 12px !important;
+    display: inline-block !important;
+    margin-right: 8px !important;
+    border-radius: 2px !important;
+    border: 1px solid rgba(0,0,0,0.1) !important;
+  }
 
 }

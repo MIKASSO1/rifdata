@@ -65,7 +65,7 @@ export const Header = () => {
         {/* حذفت Top Bar كامل */}
 
         {/* Main Nav Row */}
-        <div className="container flex h-16 md:h-20 items-center justify-between">
+        <div className="container flex h-16 md:h-20 items-center justify-between gap-4 w-full min-w-0">
           {/* Logo */}
           <Link to="/" className="flex items-center group shrink-0">
             <span
@@ -112,9 +112,10 @@ export const Header = () => {
           </div>
 
           <button
-            className="lg:hidden text-white"
+            className="lg:hidden text-white min-h-[44px] min-w-[44px] flex items-center justify-center -mr-2 shrink-0"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
+            aria-expanded={open}
           >
             {open? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -122,15 +123,15 @@ export const Header = () => {
 
         {/* Mobile menu - حيدت منو Top Bar */}
         {open && (
-          <div className="lg:hidden glass-dark border-t border-white/10 animate-fade-in">
-            <nav className="container py-6 flex flex-col gap-4">
+          <div className="lg:hidden glass-dark border-t border-white/10 animate-fade-in max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain">
+            <nav className="container py-6 flex flex-col gap-1 w-full min-w-0">
               {/* حذفت div ديال +500h و الأيقونات */}
               {navItems.map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
                   onClick={(e) => { handleNavClick(e, item); if (!item.gated) setOpen(false); }}
-                  className="text-lg font-medium text-white py-2 flex items-center gap-2"
+                  className="text-lg font-medium text-white py-3 min-h-[48px] flex items-center gap-2 break-words"
                 >
                   {item.label}
                   {item.badge && (

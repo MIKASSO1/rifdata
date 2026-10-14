@@ -33,20 +33,20 @@ const LanguagesPage = () => {
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-[#f5f1ea] flex flex-col overflow-x-clip">
       <Header />
-      <main className="flex-1">
-        <section className="py-16 md:py-28">
-          <div className="container">
-            <div className="grid lg:grid-cols-5 gap-10 lg:gap-16 items-center">
+      <main className="flex-1 w-full min-w-0">
+        <section className="py-12 sm:py-16 md:py-28">
+          <div className="container w-full min-w-0">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-16 items-center">
 
               {/* النص: كياخد 2 من 5 */}
-              <div className="order-2 lg:order-1 lg:col-span-2">
-                <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/15 text-primary/80">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  Linguistic Atlas · Rif
+              <div className="order-2 lg:order-1 lg:col-span-2 min-w-0">
+                <div className="mb-6 inline-flex max-w-full items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/15 text-primary/80">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
+                  <span className="text-sm break-words">Linguistic Atlas · Rif</span>
                 </div>
-                <h1 className="font-serif-display text-4xl md:text-6xl font-bold text-primary tracking-tight leading-[1.08]">
+                <h1 className="font-serif-display text-[2rem] leading-[1.1] sm:text-4xl md:text-6xl font-bold text-primary tracking-tight sm:leading-[1.08] text-balance break-words">
                  <span className="font-serif-display italic">Tribe by</span>{" "}
                  <span className="font-serif-display">Tribe.</span>
                  <br />
@@ -60,15 +60,15 @@ const LanguagesPage = () => {
               </div>
 
               {/* الخريطة: كتاخد 3 من 5 */}
-              <div className="order-1 lg:order-2 lg:col-span-3">
+              <div className="order-1 lg:order-2 lg:col-span-3 min-w-0">
                 <div className="glass-panel rounded-xl p-2 md:p-3 shadow-card-soft">
                   <div
-                    className="w-full overflow-hidden ring-1 ring-border"
-                    style={{ borderRadius: 12, height: "500px" }}
+                    className="w-full overflow-hidden ring-1 ring-border min-w-0"
+                    style={{ borderRadius: 12, height: "clamp(320px, 60vw, 500px)" }}
                   >
                     <MapErrorBoundary>
                       <Suspense fallback={
-                        <div className="h-[500px] w-full bg-muted animate-pulse rounded-xl flex items-center justify-center">
+                        <div className="h-full min-h-[320px] w-full bg-muted animate-pulse rounded-xl flex items-center justify-center">
                           <p>جاري تحميل الخريطة...</p>
                         </div>
                       }>
@@ -87,7 +87,7 @@ const LanguagesPage = () => {
         </section>
 
         {/* ← القسم الجديد: كيبان تحت الخريطة */}
-        <section className="py-8 md:py-12 bg-muted/30">
+        <section className="py-8 md:py-12 bg-[#f5f1ea]">
           <div className="container">
             <RegionDetails selectedRegion={selectedRegion} />
           </div>

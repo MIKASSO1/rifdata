@@ -78,11 +78,11 @@ function MarkPill({ value, tone }: { value: Mark; tone: "rif" | "gen" }) {
 
 export const Comparison = () => {
   return (
-    <section className="relative overflow-hidden py-28 md:py-40 bg-[#0a0a0a] text-[#f5f1ea]">
+    <section className="relative overflow-x-clip py-20 sm:py-28 md:py-40 bg-[#0a0a0a] text-[#f5f1ea]">
       {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(52,211,153,0.10),transparent_70%)]" />
 
-      <div className="relative max-w-6xl mx-auto px-6">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 w-full min-w-0">
         {/* Eyebrow */}
         <div className="reveal flex justify-center items-center gap-3 text-[11px] font-mono tracking-[0.22em] uppercase text-[#f5f1ea]/50 mb-10">
           <span className="w-6 h-px bg-[#f5f1ea]/30" />

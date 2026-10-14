@@ -10,9 +10,9 @@ import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-[#f5f1ea]">
+    <div className="min-h-screen bg-[#f5f1ea] overflow-x-clip">
       <Header />
-      <main>
+      <main className="w-full min-w-0">
         <Hero />
 
         {/* === Executive Overview COPIED EXACTLY FROM AboutPage === */}

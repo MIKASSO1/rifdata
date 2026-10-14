@@ -219,10 +219,10 @@ const TestPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0b0d10] text-white/90">
+    <div className="min-h-screen flex flex-col bg-[#0b0d10] text-white/90 overflow-x-clip">
       <Header />
-      <main className="flex-1 pt-24 md:pt-28 pb-20 font-sans" style={{ marginTop: 80 }}>
-        <div className="container max-w-3xl">
+      <main className="flex-1 w-full min-w-0 pt-24 md:pt-28 pb-16 sm:pb-20 font-sans">
+        <div className="container max-w-3xl w-full min-w-0 px-4 sm:px-6">
           {/* Top bar */}
           <div className="mb-8 flex items-center justify-between text-xs">
             <Link
@@ -238,7 +238,7 @@ const TestPage = () => {
 
           {/* PHASE 1 — Registration */}
           {phase === "register" && (
-            <section className="border border-white/10 bg-white/[0.02] rounded-md p-6 md:p-10">
+            <section className="border border-white/10 bg-white/[0.02] rounded-md p-5 sm:p-6 md:p-10 w-full min-w-0">
               <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-mono mb-3">
                 Step 03 · Candidate Registration
               </div>
@@ -337,13 +337,13 @@ const TestPage = () => {
                 </div>
               </div>
 
-              <div className="mt-10 flex justify-end">
+              <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-stretch sm:justify-end gap-3">
                 <Button
                   variant="emerald"
                   size="xl"
                   onClick={handleStartTest}
                   disabled={!canRegister}
-                  className={!canRegister ? "opacity-50 cursor-not-allowed" : ""}
+                  className={!canRegister ? "opacity-50 cursor-not-allowed w-full sm:w-auto min-h-[48px]" : "w-full sm:w-auto min-h-[48px]"}
                 >
                   {nativeSpeaker === "No" ? "Join Waitlist" : "Begin Qualification Test"} <ArrowRight />
                 </Button>
@@ -353,9 +353,9 @@ const TestPage = () => {
 
           {/* PHASE 2 — Sequential Test */}
           {phase === "test" && sample && (
-            <section>
+            <section className="w-full min-w-0">
               {/* Progress */}
-              <div className="border border-white/10 bg-white/[0.02] rounded-md p-5 mb-6 sticky top-20 z-10 backdrop-blur">
+              <div className="border border-white/10 bg-white/[0.02] rounded-md p-4 sm:p-5 mb-6 sticky top-16 md:top-20 z-10 backdrop-blur">
                 <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-white/50 mb-2">
                   <span className="inline-flex items-center gap-1.5">
                     <Activity size={12} /> Progress · {language}
@@ -375,7 +375,7 @@ const TestPage = () => {
                 </div>
               </div>
 
-              <div className="border border-white/10 bg-white/[0.02] rounded-md p-6 md:p-10">
+              <div className="border border-white/10 bg-white/[0.02] rounded-md p-5 sm:p-6 md:p-10 w-full min-w-0">
                 <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-mono mb-4">
                   Sample {sample.code} · {sample.duration}s · {sample.language}
                 </div>
@@ -445,7 +445,7 @@ const TestPage = () => {
                   className="resize-none bg-black/30 border-white/10 text-white placeholder:text-white/30 font-mono text-base leading-relaxed focus-visible:ring-cyan-400/40 focus-visible:ring-offset-0"
                 />
 
-                <div className="mt-6 flex items-center justify-between gap-4">
+                <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                   <div className="text-[11px] font-mono uppercase tracking-wider text-white/40">
                     {currentAnswer.trim().split(/\s+/).filter(Boolean).length}{" "}
                     words
@@ -455,6 +455,7 @@ const TestPage = () => {
                     size="xl"
                     onClick={handleSubmitSample}
                     disabled={currentAnswer.trim().length < 2}
+                    className="w-full sm:w-auto min-h-[48px]"
                   >
                     {currentIdx + 1 === samples.length ? (
                       <>

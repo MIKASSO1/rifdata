@@ -2,6 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { useRef, useEffect } from 'react';
+import referenceMapImg from "@/assets/morocco-reference-map.jpg";
 
 const stats = [
   { value: "150+", label: "Speech Variants\nMapped" },
@@ -34,22 +35,22 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section className="relative pt-20 md:pt-28 pb-24 md:pb-36 bg-[#f5f1ea] text-[#0a0a0a] overflow-hidden">
+    <section className="relative pt-20 md:pt-28 pb-16 sm:pb-24 md:pb-36 bg-[#f5f1ea] text-[#0a0a0a] overflow-x-clip">
 
-      <div className="mx-auto max-w-7xl px-6 relative">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 relative w-full min-w-0">
 
         {/* Eyebrow */}
-        <div className="flex items-center gap-3 font-mono tracking-[0.22em] uppercase text-[11px] text-[#0a0a0a]/50">
-          <span className="w-6 h-px bg-[#0a0a0a]/30" />
-          Morocco's Premier AI Data Partner for Tarifit
-          <span className="ml-2 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-[#0a0a0a]/15 bg-[#0a0a0a]/[0.04] text-[#0a0a0a]/60">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-mono tracking-[0.22em] uppercase text-[10px] sm:text-[11px] text-[#0a0a0a]/50">
+          <span className="w-6 h-px bg-[#0a0a0a]/30 shrink-0" />
+          <span className="break-words">Morocco's Premier AI Data Partner for Tarifit</span>
+          <span className="ml-0 sm:ml-2 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-[#0a0a0a]/15 bg-[#0a0a0a]/[0.04] text-[#0a0a0a]/60">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
             Active Collection
           </span>
         </div>
 
         {/* Headline - طلعناه للفوق */}
-        <h1 className="font-serif-display max-w-4xl text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl leading-[1.07] tracking-[-0.02em] mt-4 md:mt-6">
+        <h1 className="font-serif-display max-w-4xl text-[2rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl sm:leading-[1.07] tracking-[-0.02em] mt-4 md:mt-6 text-balance break-words">
           Engineering Multi-Layer
           <br />
           <span className="italic text-[#0a0a0a]/45">
@@ -60,16 +61,18 @@ export const Hero = () => {
         </h1>
 
         {/* Sub-paragraph + Map */}
-        <div className="mt-10 md:mt-14 grid md:grid-cols-12 gap-10 md:gap-16 items-center">
+        <div className="mt-8 sm:mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
 
           {/* Map */}
-          <div className="md:col-span-6">
+          <div className="md:col-span-6 min-w-0">
             <div className="relative rounded-2xl overflow-hidden border border-[#0a0a0a]/8 shadow-[0_8px_40px_-12px_rgba(10,10,10,0.18)]">
               <img
-                src="/videos/morocco-map.png"
+                src={referenceMapImg}
                 alt="Languages of Rif Map"
                 loading="lazy"
-                className="w-full h-auto"
+                width={1024}
+                height={768}
+                className="w-full h-auto max-w-full object-cover"
               />
               {/* Map overlay badge */}
               <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0a0a0a]/75 backdrop-blur-sm">
@@ -80,7 +83,7 @@ export const Hero = () => {
           </div>
 
           {/* Text */}
-          <div className="md:col-span-6 space-y-5">
+          <div className="md:col-span-6 space-y-4 sm:space-y-5 min-w-0">
             <p className="text-base md:text-lg leading-[1.75] text-[#0a0a0a]/65 font-light">
               We have{" "}
               <a href="/languages" className="text-[#2B6CFF] font-medium underline-offset-3 decoration-[#2B6CFF]/25 hover:decoration-[#2B6CFF]/60 transition-all">
@@ -104,17 +107,17 @@ export const Hero = () => {
         </div>
 
         {/* CTAs */}
-        <div className="mt-10 md:mt-12 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+        <div className="mt-8 sm:mt-10 md:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
           <a
             href="/contact"
-            className="group inline-flex items-center gap-2.5 px-7 py-4 rounded-full bg-[#0a0a0a] text-white text-sm font-medium hover:bg-[#0a0a0a]/85 transition-all shadow-[0_4px_24px_-6px_rgba(10,10,10,0.4)]"
+            className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#0a0a0a] text-white text-sm font-medium hover:bg-[#0a0a0a]/85 transition-all shadow-[0_4px_24px_-6px_rgba(10,10,10,0.4)] min-h-[48px] w-full sm:w-auto"
           >
             Request Dataset
             <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
           <a
             href="/quality"
-            className="group inline-flex items-center gap-2.5 px-7 py-4 rounded-full border-[#0a0a0a]/18 text-[#0a0a0a] text-sm font-medium hover:bg-[#0a0a0a]/5 hover:border-[#0a0a0a]/30 transition-all"
+            className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full border border-[#0a0a0a]/20 text-[#0a0a0a] text-sm font-medium hover:bg-[#0a0a0a]/5 hover:border-[#0a0a0a]/30 transition-all min-h-[48px] w-full sm:w-auto"
           >
             Our QA Process
             <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -122,19 +125,19 @@ export const Hero = () => {
         </div>
 
         {/* Divider */}
-        <div className="mt-20 md:mt-24 h-px bg-gradient-to-r from-transparent via-[#0a0a0a]/15 to-transparent" />
+        <div className="mt-14 sm:mt-20 md:mt-24 h-px bg-gradient-to-r from-transparent via-[#0a0a0a]/15 to-transparent" />
 
         {/* Stats + Video */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch mt-14 md:mt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-stretch mt-10 sm:mt-14 md:mt-16">
 
           {/* Stats */}
-          <div className="lg:col-span-3 flex flex-col justify-center gap-0">
+          <div className="lg:col-span-3 flex flex-col justify-center gap-0 min-w-0">
             {stats.map((s, i) => (
               <div
                 key={s.value}
-                className={`py-6 flex items-center gap-6 ${i < stats.length - 1? "border-b border-[#0a0a0a]/8" : ""}`}
+                className={`py-5 sm:py-6 flex items-center gap-5 sm:gap-6 ${i < stats.length - 1? "border-b border-[#0a0a0a]/8" : ""}`}
               >
-                <div className="font-serif-display text-3xl md:text-4xl tracking-tight font-medium min-w-[80px]">
+                <div className="font-serif-display text-2xl sm:text-3xl md:text-4xl tracking-tight font-medium min-w-[72px] sm:min-w-[80px] shrink-0">
                   {s.value}
                 </div>
                 <div className="text-xs text-[#0a0a0a]/50 font-light leading-tight whitespace-pre-line">
@@ -145,7 +148,7 @@ export const Hero = () => {
           </div>
 
           {/* Video */}
-          <div className="lg:col-span-9 relative h-[380px] lg:h-[500px] bg-[#0a0a0a] rounded-2xl overflow-hidden shadow-[0_24px_80px_-20px_rgba(10,10,10,0.35)]">
+          <div className="lg:col-span-9 relative h-[260px] sm:h-[380px] lg:h-[500px] bg-[#0a0a0a] rounded-2xl overflow-hidden shadow-[0_24px_80px_-20px_rgba(10,10,10,0.35)] min-w-0">
             <video
               ref={videoRef}
               className="w-full h-full object-cover opacity-90"

@@ -3,14 +3,12 @@ import { Link } from "react-router-dom";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/Footer";
 import { PageShell } from "@/components/landing/PageShell";
-import { AboutStory } from "@/components/landing/AboutStory";
-import  Capabilities from "@/components/Capabilities"; // صحيح
 import { Team } from "@/components/landing/Team";
 
 const AboutPage = () => (
-  <div className="min-h-screen bg-background flex flex-col">
+  <div className="min-h-screen bg-background flex flex-col overflow-x-clip">
     <Header />
-    <main className="flex-1">
+    <main className="flex-1 w-full min-w-0">
       <PageShell
         eyebrow="About · Who We Are"
         title={
@@ -50,8 +48,6 @@ const AboutPage = () => (
           </div>
         </div>
       </section>
-      <AboutStory />
-      <Capabilities />
       <Team />
     </main>
     <Footer />

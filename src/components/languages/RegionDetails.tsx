@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Play, Square, MapPin, Type, Waves, Languages, ChevronDown } from 'lucide-react';
+import { Play, Square, Type, Waves, Languages, ChevronDown } from 'lucide-react';
 
 interface Sentence { id: number; text: string; english: string; }
 interface RegionInfo { name: string; sentences: Sentence[]; }
@@ -139,9 +139,9 @@ const RegionDetails = ({ selectedRegion }: Props) => {
   }
 
   return (
-    <div className="space-y-12 py-8 px-4">
-      <h1 className="text-4xl font-bold text-center">{region.name}</h1>
-      <div className="bg-white rounded-3xl border border-navy/10 shadow-[0_20px_60px_-30px_rgba(15,42,92,0.25)] p-6 md:p-10">
+    <div className="space-y-8 sm:space-y-12 py-6 sm:py-8 px-1 sm:px-4 w-full min-w-0 overflow-x-clip">
+      <h1 className="text-2xl sm:text-4xl font-bold text-center break-words px-2">{region.name}</h1>
+      <div className="bg-white rounded-2xl sm:rounded-3xl border border-navy/10 shadow-[0_20px_60px_-30px_rgba(15,42,92,0.25)] p-4 sm:p-6 md:p-10 w-full min-w-0 overflow-hidden">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8">
           <div>
@@ -169,150 +169,96 @@ const RegionDetails = ({ selectedRegion }: Props) => {
           </div>
         </div>
 
-                {/* Dialect Comparison Table */}
-        <div className="overflow-x-auto rounded-2xl border border-navy/10 shadow-sm">
-          <table className="w-full border-collapse text-sm">
+                {/* Dialect Comparison Table — transposed: dialects as rows, fields as columns */}
+        <div className="overflow-x-auto overscroll-x-contain rounded-2xl border border-navy/10 shadow-sm -mx-1 sm:mx-0">
+          <table className="w-full min-w-[880px] border-collapse text-sm">
             <thead>
               <tr className="bg-navy text-white">
-                <th className="text-left px-5 py-4 font-semibold tracking-wider uppercase text-[11px] w-36 border-r border-white/10">
+                <th className="text-left px-5 py-4 font-semibold tracking-wider uppercase text-[11px] w-44 border-r border-white/10">
+                  Dialect
+                </th>
+                <th className="text-left px-5 py-4 font-semibold tracking-wider uppercase text-[11px] border-r border-white/10 last:border-r-0">
                   <div className="flex items-center gap-2">
                     <Type size={13} />
-                    Field
+                    Transcription
                   </div>
                 </th>
-                {dialectList.map(dialect => {
-                  const isActive = mappedRegionName === dialect;
-                  const shortName = dialect.replace(' Rif', '').replace(' Region', '');
-                  return (
-                    <th
-                      key={dialect}
-                      className={`px-5 py-4 text-left font-semibold tracking-wide text-[13px] border-r border-white/10 last:border-r-0 ${
-                        isActive? 'bg-white/15' : ''
-                      }`}
-                    >
+                <th className="text-left px-5 py-4 font-semibold tracking-wider uppercase text-[11px] border-r border-white/10 last:border-r-0">
+                  <div className="flex items-center gap-2">
+                    <Waves size={13} />
+                    Academic
+                  </div>
+                </th>
+                <th className="text-left px-5 py-4 font-semibold tracking-wider uppercase text-[11px] border-r border-white/10 last:border-r-0">
+                  <div className="flex items-center gap-2">
+                    <Languages size={13} />
+                    Translation
+                  </div>
+                </th>
+                <th className="text-left px-5 py-4 font-semibold tracking-wider uppercase text-[11px] border-r border-white/10 last:border-r-0">
+                  <div className="flex items-center gap-2">
+                    <Play size={13} />
+                    Audio
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {dialectList.map((dialect, rowIdx) => {
+                const s = getSentenceById(dialect, selectedSentenceId);
+                const isActive = mappedRegionName === dialect;
+                const shortName = dialect.replace(' Rif', '').replace(' Region', '');
+                const key = `${dialect}-${selectedSentenceId}`;
+                const isPlaying = playingKey === key;
+                return (
+                  <tr
+                    key={dialect}
+                    className={`border-b border-navy/10 last:border-b-0 transition-colors ${
+                      rowIdx % 2 === 1 ? 'bg-slate-50/60' : 'bg-white'
+                    } hover:bg-navy/[0.03] ${isActive ? 'bg-navy/[0.03]' : ''}`}
+                  >
+                    {/* Dialect name */}
+                    <td className="px-5 py-4 border-r border-navy/10 align-top">
                       <div className="flex items-center gap-2">
-                        <span className={`w-2 h-2 rounded-full shrink-0 ${
-                          isActive? 'bg-amber-300' : 'bg-white/40'
-                        }`} />
-                        <span>{shortName}</span>
+                        <span className={`w-2 h-2 rounded-full shrink-0 ${isActive ? 'bg-amber-400' : 'bg-navy/30'}`} />
+                        <span className="font-semibold text-[13px] text-navy-deep whitespace-nowrap">{shortName}</span>
                         {isActive && (
-                          <span className="ml-1 px-2 py-0.5 rounded-full bg-amber-300 text-navy text-[9px] font-bold tracking-wider uppercase">
+                          <span className="ml-1 px-2 py-0.5 rounded-full bg-amber-300 text-navy text-[9px] font-bold tracking-wider uppercase whitespace-nowrap">
                             Selected
                           </span>
                         )}
                       </div>
-                    </th>
-                  );
-                })}
-              </tr>
-            </thead>
-            <tbody>
-              {/* Row 1: Transcription */}
-              <tr className="border-b border-navy/8 bg-white hover:bg-navy/[0.02] transition-colors">
-                <td className="px-5 py-4 border-r border-navy/8">
-                  <div className="flex items-center gap-2 text-[10px] font-bold tracking-wider uppercase text-slate-brand">
-                    <Type size={12} className="text-navy/60" />
-                    Transcription
-                  </div>
-                </td>
-                {dialectList.map(dialect => {
-                  const s = getSentenceById(dialect, selectedSentenceId);
-                  const isActive = mappedRegionName === dialect;
-                  return (
-                    <td
-                      key={dialect}
-                      className={`px-5 py-4 border-r border-navy/8 last:border-r-0 align-top ${
-                        isActive? 'bg-navy/[0.03]' : ''
-                      }`}
-                    >
-                      <p className="text-base font-medium text-foreground leading-relaxed break-words">{s.text}</p>
                     </td>
-                  );
-                })}
-              </tr>
-
-              {/* Row 2: Academic */}
-              <tr className="border-b border-navy/8 bg-slate-50/60 hover:bg-navy/[0.02] transition-colors">
-                <td className="px-5 py-4 border-r border-navy/8">
-                  <div className="flex items-center gap-2 text-[10px] font-bold tracking-wider uppercase text-slate-brand">
-                    <Waves size={12} className="text-navy/60" />
-                    Academic
-                  </div>
-                </td>
-                {dialectList.map(dialect => {
-                  const s = getSentenceById(dialect, selectedSentenceId);
-                  const isActive = mappedRegionName === dialect;
-                  return (
-                    <td
-                      key={dialect}
-                      className={`px-5 py-4 border-r border-navy/8 last:border-r-0 align-top ${
-                        isActive? 'bg-navy/[0.03]' : ''
-                      }`}
-                    >
-                      <p className="font-mono text-[13px] text-navy bg-navy/5 border border-navy/10 rounded-lg px-3 py-2 break-words leading-relaxed">{toAcademic(s.text)}</p>
+                    {/* Transcription */}
+                    <td className="px-5 py-4 border-r border-navy/10 align-top">
+                      <p className="text-base font-medium text-foreground leading-relaxed break-words min-w-[180px]">{s.text}</p>
                     </td>
-                  );
-                })}
-              </tr>
-
-              {/* Row 3: Translation */}
-              <tr className="border-b border-navy/8 bg-white hover:bg-navy/[0.02] transition-colors">
-                <td className="px-5 py-4 border-r border-navy/8">
-                  <div className="flex items-center gap-2 text-[10px] font-bold tracking-wider uppercase text-slate-brand">
-                    <Languages size={12} className="text-navy/60" />
-                    Translation
-                  </div>
-                </td>
-                {dialectList.map(dialect => {
-                  const s = getSentenceById(dialect, selectedSentenceId);
-                  const isActive = mappedRegionName === dialect;
-                  return (
-                    <td
-                      key={dialect}
-                      className={`px-5 py-4 border-r border-navy/8 last:border-r-0 align-top ${
-                        isActive? 'bg-navy/[0.03]' : ''
-                      }`}
-                    >
-                      <p className="italic text-[13px] text-slate-brand leading-relaxed">{s.english}</p>
+                    {/* Academic */}
+                    <td className="px-5 py-4 border-r border-navy/10 align-top">
+                      <p className="font-mono text-[13px] text-navy bg-navy/5 border border-navy/10 rounded-lg px-3 py-2 break-words leading-relaxed min-w-[180px]">{toAcademic(s.text)}</p>
                     </td>
-                  );
-                })}
-              </tr>
-
-              {/* Row 4: Audio */}
-              <tr className="bg-slate-50/60 hover:bg-navy/[0.02] transition-colors">
-                <td className="px-5 py-4 border-r border-navy/8">
-                  <div className="flex items-center gap-2 text-[10px] font-bold tracking-wider uppercase text-slate-brand">
-                    <Play size={12} className="text-navy/60" />
-                    Audio
-                  </div>
-                </td>
-                {dialectList.map(dialect => {
-                  const key = `${dialect}-${selectedSentenceId}`;
-                  const isPlaying = playingKey === key;
-                  const isActive = mappedRegionName === dialect;
-                  return (
-                    <td
-                      key={dialect}
-                      className={`px-5 py-4 border-r border-navy/8 last:border-r-0 ${
-                        isActive? 'bg-navy/[0.03]' : ''
-                      }`}
-                    >
+                    {/* Translation */}
+                    <td className="px-5 py-4 border-r border-navy/10 align-top">
+                      <p className="italic text-[13px] text-slate-brand leading-relaxed min-w-[160px]">{s.english}</p>
+                    </td>
+                    {/* Audio */}
+                    <td className="px-5 py-4 align-top">
                       <button
                         onClick={() => handlePlayAudio(dialect, selectedSentenceId)}
-                        className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold text-white transition-all duration-200 hover:scale-105 active:scale-95 ${
+                        aria-label={isPlaying ? `Stop ${shortName} audio` : `Play ${shortName} audio`}
+                        className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold text-white transition-all duration-200 hover:scale-105 active:scale-95 whitespace-nowrap ${
                           isPlaying
-                           ? 'bg-rose-600 hover:bg-rose-700 shadow-md shadow-rose-200'
+                            ? 'bg-rose-600 hover:bg-rose-700 shadow-md shadow-rose-200'
                             : 'bg-navy hover:bg-navy-deep shadow-sm shadow-navy/20'
                         }`}
                       >
-                        {isPlaying? <Square size={13} /> : <Play size={13} />}
-                        {isPlaying? 'Stop' : 'Play'}
+                        {isPlaying ? <Square size={13} /> : <Play size={13} />}
+                        {isPlaying ? 'Stop' : 'Play'}
                       </button>
                     </td>
-                  );
-                })}
-              </tr>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

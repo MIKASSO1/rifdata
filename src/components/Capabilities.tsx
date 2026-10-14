@@ -20,9 +20,9 @@ const PILLARS = [
 
 export default function Capabilities() {
   return (
-    <section className="py-28 md:py-40 text-[#1a1a1a] border-t border-[#1a1a1a]/10 bg-[#f5f1ea]">
+    <section className="py-20 sm:py-28 md:py-40 text-[#1a1a1a] border-t border-[#1a1a1a]/10 bg-[#f5f1ea] overflow-x-clip">
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full min-w-0">
         {/* Eyebrow */}
         <div className="reveal flex items-center gap-3 text-xs font-mono tracking-[0.22em] uppercase text-[#6a6a6a] mb-10">
           <span className="w-6 h-px bg-[#1a1a1a]/30" />
@@ -30,8 +30,8 @@ export default function Capabilities() {
         </div>
 
         {/* Headline */}
-        <div className="grid md:grid-cols-12 gap-8 md:gap-16 items-end mb-20 md:mb-28">
-          <h2 className="reveal md:col-span-7 font-serif-display text-4xl md:text-6xl lg:text-7xl leading-[1.02] tracking-[-0.02em] font-medium">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 md:gap-16 items-start md:items-end mb-14 sm:mb-20 md:mb-28">
+          <h2 className="reveal md:col-span-7 font-serif-display text-[2rem] leading-[1.08] sm:text-4xl md:text-6xl lg:text-7xl sm:leading-[1.02] tracking-[-0.02em] font-medium text-balance break-words">
             Three pillars.
             <br />
             <span className="italic text-[#6a6a6a]">
@@ -46,12 +46,12 @@ export default function Capabilities() {
         </div>
 
         {/* Pillars grid */}
-        <div className="grid md:grid-cols-3 border-t border-[#1a1a1a]/10">
+        <div className="grid grid-cols-1 md:grid-cols-3 border-t border-[#1a1a1a]/10">
           {PILLARS.map(({ icon: Icon, title, body }, i) => (
             <article
               key={title}
-              className={`reveal py-12 md:py-14 md:px-10 group transition-colors duration-300 hover:bg-[#ece8e0]/60 ${
-                i > 0? "md:border-l border-[#1a1a1a]/10" : ""
+              className={`reveal py-10 sm:py-12 md:py-14 px-1 sm:px-2 md:px-10 group transition-colors duration-300 hover:bg-[#ece8e0]/60 min-w-0 ${
+                i > 0? "border-t md:border-t-0 md:border-l border-[#1a1a1a]/10" : ""
               }`}
             >
               <div className="flex items-center justify-between mb-10">
@@ -72,8 +72,8 @@ export default function Capabilities() {
       </div>
 
       {/* Quote + Video block */}
-      <div className="max-w-7xl mx-auto px-6 mt-24 md:mt-32">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24 md:mt-32 w-full min-w-0">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center">
 
           {/* Quote */}
           <div className="reveal lg:col-span-3">

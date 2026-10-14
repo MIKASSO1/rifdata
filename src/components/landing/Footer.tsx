@@ -34,64 +34,85 @@ const sponsors = [
   { abbr: "OLF", sub: "OpenLang Foundation", color: "#7C3AED" },
 ];
 
+const companyLinks = [
+  ["About", "/about"],
+  ["Insights", "/insights"],
+  ["Contact", "/contact"],
+  ["Executive Overview", "/executive-overview"],
+] as const;
+
+const platformLinks = [
+  ["Services", "/services"],
+  ["Languages", "/languages"],
+  ["Quality", "/quality"],
+  ["Data Crowd", "/data-crowd"],
+] as const;
+
+const legalLinks = [
+  ["Compliance", "/compliance"],
+  ["Privacy Policy", "/compliance"],
+  ["Terms of Service", "/compliance"],
+  ["Data Processing", "/compliance"],
+] as const;
+
 export const Footer = () => {
   return (
-    <footer className="bg-[#0d0d0d] text-white/60">
-      {/* CTA band */}
-      <div
-        className="border-b border-white/[0.07]"
-        style={{ backgroundColor: "#F5F1EA", paddingTop: 48, paddingBottom: 48 }}
-      >
-        <div className="container">
-          <div className="grid md:grid-cols-12 gap-8 items-center">
-            <div className="md:col-span-7">
-              <p className="text-[10px] font-mono tracking-[0.28em] uppercase text-white/35 mb-4">
+    <footer className="bg-[#0A0E1A] text-white antialiased">
+      {/* ── CTA band ── compact & balanced */}
+      <div className="bg-[#F5F1EA] border-b border-[#0A0E1A]/10">
+        <div className="container max-w-6xl py-10 md:py-12">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-xl">
+              <p className="text-[11px] font-sans font-semibold uppercase tracking-[0.24em] text-[#0A0E1A]/50 mb-3">
                 Partner With Us
               </p>
-              <h2 className="font-serif-display text-3xl md:text-5xl text-[#0A0E1A] leading-[1.1] tracking-[-0.02em]">
-                The data gap is real.
-                <br />
-                <span className="italic text-[#2B6CFF]">Let's close it together.</span>
+              <h2 className="font-serif-display text-[26px] md:text-[34px] leading-[1.15] tracking-[-0.02em] text-[#0A0E1A]">
+                The data gap is real.{" "}
+                <span className="italic text-[#2B6CFF]">Let&rsquo;s close it together.</span>
               </h2>
             </div>
-            <div className="md:col-span-5 flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3 md:justify-end">
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
               <Link
                 to="/contact"
-                className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-[#0A0E1A] text-white hover:bg-[1A1F2F] transition-colors text-sm font-medium"
+                className="group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#0A0E1A] text-white text-sm font-medium hover:bg-[#1A2236] transition-colors min-h-[46px]"
               >
                 Request a Dataset
-                <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
               <Link
                 to="/about"
-                className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full border border-[#0A0E1A]/15 text-[#0A0E1A]/80 text-sm font-medium hover:border-[#0A0E1A]/30 hover:text-[#0A0E1A] transition-all"
+                className="group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-[#0A0E1A]/15 text-[#0A0E1A] text-sm font-medium hover:border-[#0A0E1A]/35 hover:bg-[#0A0E1A]/[0.04] transition-all min-h-[46px]"
               >
                 About RifData
-                <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main grid */}
-      <div className="container py-10" style={{ borderTop: "2px solid #1A1F2E" }}>
-        <div className="grid md:grid-cols-12 gap-8 pb-8 md:gap-8 md:pb-8">
-          {/* 1) Logo + Description + Social icons */}
-          <div className="md:col-span-5">
-            <img src="/about/LOGO.SVG.svg" alt="RifData" className="h-8 w-auto object-contain mb-5" />
-            <p className="text-[13px] leading-[1.6] max-w-md text-white/50 font-light max-w-md">
-              The first company in history to officially digitize Tarifit. We engineer AI training data for the
-              Tarifit dialect across all its tribal variants — built on authentic local expertise
+      {/* ── Main footer ── organized 4-column grid */}
+      <div className="container max-w-6xl pt-12 pb-8">
+        <div className="grid gap-10 sm:grid-cols-3 lg:grid-cols-12">
+          {/* Brand — logo + tagline + social */}
+          <div className="sm:col-span-3 lg:col-span-5">
+            <Link to="/" className="inline-block">
+              <img src="/about/LOGO.SVG.svg" alt="RifData" className="h-8 w-auto object-contain brightness-0 invert" />
+            </Link>
+            <p className="mt-4 font-serif-display italic text-[15px] leading-relaxed text-white/85">
+              The Digital Linguistic Infrastructure of the Rif
             </p>
-
-            <div className="flex items-center gap-2.5 mt-7">
+            <p className="mt-3 text-[13px] leading-[1.7] text-white/45 font-light max-w-sm">
+              AI training data for Tarifit across all its tribal variants — engineered with authentic local
+              expertise.
+            </p>
+            <div className="flex items-center gap-2 mt-6">
               <a
                 href="https://linkedin.com/company/rifdata"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="h-8 w-8 flex items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-white/45 hover:text-white hover:border-white/25 hover:bg-white/10 transition-all duration-200"
+                className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/50 hover:text-white hover:border-white/25 hover:bg-white/10 transition-all duration-200"
               >
                 <LinkedInIcon />
               </a>
@@ -100,106 +121,107 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="h-8 w-8 flex items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-white/45 hover:text-white hover:border-white/25 hover:bg-white/10 transition-all duration-200"
+                className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/50 hover:text-white hover:border-white/25 hover:bg-white/10 transition-all duration-200"
               >
                 <InstagramIcon />
               </a>
             </div>
           </div>
 
-          {/* 2) COMPANY + LEGAL columns */}
-          <div className="md:col-span-3 md:col-start-7">
-            <h4 className="text-white/90 font-semibold text-[10px] uppercase tracking-[0.22em] mb-4">Company</h4>
-            <ul className="space-y-2.5 text-[13px]">
-              {[
-                ["About", "/about"],
-                ["Languages", "/languages"],
-                ["Quality", "/quality"],
-                ["Data Crowd", "/data-crowd"],
-                ["Insights", "/insights"],
-              ].map(([label, href]) => (
+          {/* Link columns — all three side by side in one row */}
+          <nav aria-label="Platform" className="lg:col-span-2">
+            <h4 className="text-white/90 font-sans font-semibold text-[11px] uppercase tracking-[0.2em] mb-4">
+              Platform
+            </h4>
+            <ul className="space-y-2.5 text-[13.5px]">
+              {platformLinks.map(([label, href]) => (
                 <li key={label}>
-                  <Link to={href} className="text-white/45 hover:text-white/90 transition-colors duration-200">
+                  <Link to={href} className="text-white/50 hover:text-white transition-colors duration-200">
                     {label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          <div className="md:col-span-2">
-            <h4 className="text-white/90 font-semibold text-[10px] uppercase tracking-[0.22em] mb-4">Legal</h4>
-            <ul className="space-y-2 text-[13px]">
-              {["GDPR Compliance", "Privacy Policy", "Terms of Service", "Data Processing"].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-white/45 hover:text-white/90 transition-colors duration-200">
-                    {item}
-                  </a>
+          <nav aria-label="Company" className="lg:col-span-2">
+            <h4 className="text-white/90 font-sans font-semibold text-[11px] uppercase tracking-[0.2em] mb-4">
+              Company
+            </h4>
+            <ul className="space-y-2.5 text-[13.5px]">
+              {companyLinks.map(([label, href]) => (
+                <li key={label}>
+                  <Link to={href} className="text-white/50 hover:text-white transition-colors duration-200">
+                    {label}
+                  </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* 3) OFFICIAL PARTNERS & BACKERS */}
-          <div className="md:col-span-12">
-            <div className="border-t border-white/10 pt-8 mt-8">
-              <p className="text-center text-[9px] font-bold uppercase tracking-[0.32em] text-white/20 mb-4">
-                OFFICIAL PARTNERS &amp; BACKERS
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12">
-                {sponsors.map((s) => (
-                  <div
-                    key={s.abbr}
-                    className="flex items-center gap-2.5 opacity-25 hover:opacity-55 transition-opacity duration-300 cursor-default"
+          <nav aria-label="Legal" className="lg:col-span-3">
+            <h4 className="text-white/90 font-sans font-semibold text-[11px] uppercase tracking-[0.2em] mb-4">
+              Legal
+            </h4>
+            <ul className="space-y-2.5 text-[13.5px]">
+              {legalLinks.map(([label, href]) => (
+                <li key={label}>
+                  <Link to={href} className="text-white/50 hover:text-white transition-colors duration-200">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        {/* ── Partners strip ── single elegant hairline */}
+        <div className="mt-10 border-t border-white/[0.08] pt-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-[10px] font-sans font-semibold uppercase tracking-[0.28em] text-white/30">
+              Official Partners &amp; Backers
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+              {sponsors.map((s) => (
+                <div
+                  key={s.abbr}
+                  className="flex items-center gap-2 opacity-40 hover:opacity-80 transition-opacity duration-300 cursor-default"
+                >
+                  <span
+                    className="h-6 w-6 rounded-[6px] flex items-center justify-center text-[8px] font-black tracking-wide"
+                    style={{
+                      backgroundColor: s.color + "1A",
+                      border: `1px solid ${s.color}40`,
+                      color: s.color,
+                    }}
                   >
-                    <div
-                      className="h-7 w-7 rounded-md flex items-center justify-center shrink-0 text-[9px] font-black"
-                      style={{
-                        backgroundColor: s.color + "18",
-                        border: `1px solid ${s.color}35`,
-                        color: s.color,
-                      }}
-                    >
-                      {s.abbr}
-                    </div>
-                    <span className="text-[11px] font-semibold text-white/80 whitespace-nowrap tracking-wide">{s.sub}</span>
-                  </div>
-                ))}
-              </div>
+                    {s.abbr}
+                  </span>
+                  <span className="text-[12px] font-medium text-white/70 tracking-wide whitespace-nowrap">
+                    {s.sub}
+                  </span>
+                </div>
+              ))}
             </div>
+          </div>
+        </div>
 
-            {/* 4) Copyright line */}
-            <div className="mt-8 pt-6 border-t border-white/[0.06] flex flex-col md:flex-row gap-4 items-center justify-between text-[11px] text-white/30">
-              <div className="flex items-center gap-3">
-                <span>© 2026 RifData Atlas.</span>
-                <span className="text-white/15">·</span>
-                <span>All Rights Reserved.</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="text-white/25">GDPR Compliant</span>
-                <span className="text-white/15">·</span>
-                <span className="text-white/25">ISO-aligned QA</span>
-                <span className="text-white/15">·</span>
-                <a
-                  href="https://linkedin.com/company/rifdata"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  className="text-white/30 hover:text-white/70 transition-colors"
-                >
-                  <LinkedInIcon />
-                </a>
-                <a
-                  href="https://instagram.com/rifdata"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                  className="text-white/30 hover:text-white/70 transition-colors"
-                >
-                  <InstagramIcon />
-                </a>
-              </div>
-            </div>
+        {/* ── Bottom bar ── compact legal line */}
+        <div className="mt-6 pt-5 border-t border-white/[0.08] flex flex-col sm:flex-row gap-3 items-center justify-between text-[12px]">
+          <p className="text-white/35 font-light tracking-wide">
+            © 2026 RifData Atlas. All rights reserved.
+          </p>
+          <div className="flex items-center gap-2.5 text-white/35">
+            <span className="inline-flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80" />
+              GDPR Compliant
+            </span>
+            <span className="text-white/15">·</span>
+            <span>ISO-aligned QA</span>
+            <span className="text-white/15">·</span>
+            <Link to="/compliance" className="hover:text-white/70 transition-colors">
+              Security
+            </Link>
           </div>
         </div>
       </div>

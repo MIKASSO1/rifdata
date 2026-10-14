@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -56,8 +55,8 @@ const RifMap = ({ onRegionClick }: RifMapProps) => {
   };
 
   return (
-    <div style={{ height: '600px', width: '100%', borderRadius: '12px', overflow: 'hidden' }}>
-      <MapContainer center={[35.0, -4.0]} zoom={7.5} style={{ height: '100%', width: '100%' }} scrollWheelZoom={true}>
+    <div className="w-full min-w-0 overflow-hidden" style={{ height: 'clamp(320px, 60vw, 600px)', borderRadius: '12px' }}>
+      <MapContainer center={[35.0, -4.0]} zoom={7} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
 
         {/* Wikimedia Maps - نفس لون Positron النقي + بلا أسماء + بلا API Key نهائيا */}
         <TileLayer
@@ -69,23 +68,23 @@ const RifMap = ({ onRegionClick }: RifMapProps) => {
 
         {/* Legend مرفوعة 20px فقط */}
         <div className="leaflet-top leaflet-right">
-          <div className="leaflet-control leaflet-bar" style={{ background: 'rgba(255,255,255,0.95)', padding: '12px', margin: '10px', marginTop: '20px', borderRadius: '8px', boxShadow: '0 1px 5px rgba(0,0,0,0.4)' }}>
-            <h4 style={{margin: '0 0 10px 0', fontSize: '14px', fontWeight: 'bold'}}>Rif Regions</h4>
-            <div style={{display: 'flex', alignItems: 'center', marginBottom: '6px'}}>
-              <span style={{background: '#FDD835', width: 18, height: 18, display: 'inline-block', marginRight: '8px', borderRadius: '3px'}}></span>
-              <span style={{fontSize: '13px'}}>Western Rif</span>
+          <div className="leaflet-control leaflet-bar max-w-[148px] sm:max-w-none p-2 sm:p-3" style={{ background: 'rgba(255,255,255,0.95)', margin: '10px', marginTop: '20px', borderRadius: '8px', boxShadow: '0 1px 5px rgba(0,0,0,0.4)' }}>
+            <h4 className="m-0 mb-2 text-[12px] sm:text-[14px] font-bold">Rif Regions</h4>
+            <div className="flex items-center mb-1.5">
+              <span style={{background: '#FDD835', width: 16, height: 16, display: 'inline-block', marginRight: '6px', borderRadius: '3px'}} className="shrink-0"></span>
+              <span className="text-[11px] sm:text-[13px] truncate">Western Rif</span>
             </div>
-            <div style={{display: 'flex', alignItems: 'center', marginBottom: '6px'}}>
-              <span style={{background: '#1E88E5', width: 18, height: 18, display: 'inline-block', marginRight: '8px', borderRadius: '3px'}}></span>
-              <span style={{fontSize: '13px'}}>Central Rif</span>
+            <div className="flex items-center mb-1.5">
+              <span style={{background: '#1E88E5', width: 16, height: 16, display: 'inline-block', marginRight: '6px', borderRadius: '3px'}} className="shrink-0"></span>
+              <span className="text-[11px] sm:text-[13px] truncate">Central Rif</span>
             </div>
-            <div style={{display: 'flex', alignItems: 'center', marginBottom: '6px'}}>
-              <span style={{background: '#8E24AA', width: 18, height: 18, display: 'inline-block', marginRight: '8px', borderRadius: '3px'}}></span>
-              <span style={{fontSize: '13px'}}>Eastern Rif</span>
+            <div className="flex items-center mb-1.5">
+              <span style={{background: '#8E24AA', width: 16, height: 16, display: 'inline-block', marginRight: '6px', borderRadius: '3px'}} className="shrink-0"></span>
+              <span className="text-[11px] sm:text-[13px] truncate">Eastern Rif</span>
             </div>
-            <div style={{display: 'flex', alignItems: 'center'}}>
-              <span style={{background: '#00897B', width: 18, height: 18, display: 'inline-block', marginRight: '8px', borderRadius: '3px'}}></span>
-              <span style={{fontSize: '13px'}}>Beni Znassen</span>
+            <div className="flex items-center">
+              <span style={{background: '#00897B', width: 16, height: 16, display: 'inline-block', marginRight: '6px', borderRadius: '3px'}} className="shrink-0"></span>
+              <span className="text-[11px] sm:text-[13px] truncate">Beni Znassen</span>
             </div>
           </div>
         </div>
